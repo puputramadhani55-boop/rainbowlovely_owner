@@ -248,7 +248,7 @@
       </div>
       <div class="field">
         <label>Harga (Rp)</label>
-        <input type="number" id="priceInput" required placeholder="28000">
+        <input type="text" inputmode="numeric" id="priceInput" required placeholder="28000">
       </div>
       <div class="field">
         <label>Link Shopee</label>
@@ -428,7 +428,7 @@ document.getElementById('productForm').addEventListener('submit', async (e) => {
   const id = document.getElementById('productId').value;
   const payload = {
     name: document.getElementById('nameInput').value.trim(),
-    price: Number(document.getElementById('priceInput').value) || 0,
+    price: Number(document.getElementById('priceInput').value.replace(/[^0-9]/g, '')) || 0,
     shopee_url: document.getElementById('shopeeInput').value.trim(),
     sort_order: Number(document.getElementById('sortInput').value) || 0,
     image_url: uploadedImage ? uploadedImage.url : null
