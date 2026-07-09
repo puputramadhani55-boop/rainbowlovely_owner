@@ -1,5 +1,5 @@
 [[redirects]]
   from = "/api/*"
-  to = "https://GANTI-DENGAN-URL-VERCEL-KAMU.vercel.app/api/:splat"
+  to = "https://rainbow-lovely.vercel.app"
   status = 200
   force = true
