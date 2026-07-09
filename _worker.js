@@ -1,5 +1,4 @@
-// Ganti ini ke domain Vercel project rainbowlovely-vercel kamu setelah deploy.
-const VERCEL_BASE = 'https://rainbowlovely-api.vercel.app';
+const VERCEL_BASE = 'https://rainbow-lovely.vercel.app';
 
 export default {
   async fetch(request, env) {
