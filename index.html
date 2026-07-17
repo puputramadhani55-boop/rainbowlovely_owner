@@ -251,9 +251,26 @@
         <input type="text" inputmode="numeric" id="priceInput" required placeholder="28000">
       </div>
       <div class="field">
-        <label>Link Shopee</label>
-        <input type="url" id="shopeeInput" placeholder="https://shopee.co.id/...">
-      </div>
+  <label for="platformSelect">Pilih Platform Toko</label>
+  <!-- Ini adalah menu dropdown -->
+  <select id="platformSelect" onchange="tampilkanInput()">
+    <option value="">-- Silakan Pilih --</option>
+    <option value="shopee">Shopee</option>
+    <option value="tiktok">TikTok</option>
+  </select>
+</div>
+
+<!-- Kolom input ini otomatis tersembunyi di awal (style="display:none") -->
+<div id="kolomShopee" class="field" style="display: none; margin-top: 10px;">
+  <label for="shopeeInput">Masukkan Link Shopee</label>
+  <input type="url" id="shopeeInput" placeholder="https://shopee.co.id...">
+</div>
+
+<div id="kolomTiktok" class="field" style="display: none; margin-top: 10px;">
+  <label for="tiktokInput">Masukkan Link TikTok</label>
+  <input type="url" id="tiktokInput" placeholder="https://tiktok.co.id...">
+</div>
+
       <div class="field">
         <label>Urutan tampil (angka kecil tampil duluan, opsional)</label>
         <input type="number" id="sortInput" placeholder="0">
@@ -429,10 +446,15 @@ document.getElementById('productForm').addEventListener('submit', async (e) => {
   const payload = {
     name: document.getElementById('nameInput').value.trim(),
     price: Number(document.getElementById('priceInput').value.replace(/[^0-9]/g, '')) || 0,
-    shopee_url: document.getElementById('shopeeInput').value.trim(),
-    sort_order: Number(document.getElementById('sortInput').value) || 0,
-    image_url: uploadedImage ? uploadedImage.url : null
-  };
+  // Mengambil nilai pilihan dropdown (shopee atau tiktok)
+  platform: document.getElementById('platformSelect').value,
+  // Mengambil nilai link dari masing-masing input secara aman
+  shopee_url: document.getElementById('shopeeInput').value.trim() || null,
+  tiktok_url: document.getElementById('tiktokInput').value.trim() || null,
+  sort_order: Number(document.getElementById('sortInput').value) || 0,
+  image_url: uploadedImage ? uploadedImage.url : null
+};
+  
   try {
     let res;
     if (id) {
