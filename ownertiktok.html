@@ -292,7 +292,7 @@ function formatRupiah(n) {
 function detectPlatform(link) {
   const l = link.toLowerCase();
   if (l.includes('shopee') || l.includes('shp.ee')) return 'shopee';
-  if (l.includes('tiktok')) return 'tiktok';
+  if (l.includes('tiktok') || l.includes('tokopedia')) return 'tiktok';
   return null;
 }
 
