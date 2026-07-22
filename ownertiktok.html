@@ -255,6 +255,11 @@
         <input type="url" id="linkInput" required placeholder="https://shopee.co.id/... atau https://vt.tiktok.com/.../vt.tokopedia.com/...">
         <p id="linkError" style="color:#d63333; font-size:0.8rem; display:none; margin-top:6px;">Link harus berupa link Shopee atau TikTok yang valid.</p>
       </div>
+    <div class="field">
+        <label>Jenis Produk</label>
+        <label><input type="radio" name="productType" value="shopee"> Shopee</label>
+        <label><input type="radio" name="productType" value="tiktok"> TikTok</label>
+    </div> 
       <div class="field">
         <label>Urutan tampil (angka kecil tampil duluan, opsional)</label>
         <input type="number" id="sortInput" placeholder="0">
@@ -312,7 +317,7 @@ async function loadProducts() {
     const all = json.products || [];
     // Kolom "platform" tidak ada di database — kategori ditentukan dari
     // apakah tiktok_url terisi (produk TikTok) atau shopee_url terisi (produk Shopee).
-    products = all.filter(p => p.tiktok_url);
+    products = all.filter(p => p.product_type === 'tiktok'); 
     renderGrid();
     return true;
   } catch (err) {
@@ -425,7 +430,7 @@ document.getElementById('productForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const id = document.getElementById('productId').value;
   const link = document.getElementById('linkInput').value.trim();
-  const detected = detectPlatform(link);
+  const detected = document.querySelector('input[name="productType"]:checked')?.value;
   if (!detected) {
     document.getElementById('linkError').style.display = 'block';
     document.getElementById('linkInput').focus();
@@ -435,6 +440,7 @@ document.getElementById('productForm').addEventListener('submit', async (e) => {
   const payload = {
     name: document.getElementById('nameInput').value.trim(),
     price: Number(document.getElementById('priceInput').value.replace(/[^0-9]/g, '')) || 0,
+    product_type : detected,
     shopee_url: detected === 'shopee' ? link : null,
     tiktok_url: detected === 'tiktok' ? link : null,
     sort_order: Number(document.getElementById('sortInput').value) || 0,
